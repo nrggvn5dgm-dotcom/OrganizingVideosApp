@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>動画整理ケース</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Video Case Organizer</p>
+          <h1>動画整理ケース</h1>
+        </div>
+        <div class="account-area">
+          <p id="welcomeLabel">ようこそ、ゲストさん</p>
+          <button id="signInButton" class="secondary-button" type="button">サインイン</button>
+          <button id="signOutButton" class="ghost-button" type="button">サインアウト</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="mainMenu" class="view active-view" aria-labelledby="mainMenuTitle">
+          <div class="menu-grid">
+            <div class="menu-actions">
+              <h2 id="mainMenuTitle">メインメニュー</h2>
+              <button id="myCasesButton" class="large-action" type="button">
+                <span class="action-icon">▦</span>
+                <span>
+                  <strong>あなたのMyケース</strong>
+                  <small>ジャンルごとに転送済み動画を確認</small>
+                </span>
+              </button>
+              <button id="recentButton" class="large-action" type="button">
+                <span class="action-icon">↺</span>
+                <span>
+                  <strong>最近の転送した動画</strong>
+                  <small>転送履歴を時系列で確認</small>
+                </span>
+              </button>
+            </div>
+
+            <aside class="transfer-panel" aria-labelledby="transferTitle">
+              <div class="panel-heading">
+                <h2 id="transferTitle">ファイル転送装置</h2>
+                <select id="genreSelect" aria-label="移動先ケース">
+                  <option value="映画">映画</option>
+                  <option value="スポーツ">スポーツ</option>
+                  <option value="音楽">音楽</option>
+                  <option value="学習">学習</option>
+                  <option value="旅行">旅行</option>
+                  <option value="その他">その他</option>
+                </select>
+              </div>
+              <div id="dropZone" class="drop-zone" tabindex="0">
+                <div class="drop-icon">⇩</div>
+                <p>動画ファイルをここにドロップ</p>
+                <span>MP4 / MOV / AVI / MKV / WEBM など</span>
+                <input id="fileInput" type="file" accept="video/*" multiple />
+              </div>
+              <button id="chooseFilesButton" class="primary-button" type="button">動画ファイルを選択</button>
+            </aside>
+          </div>
+        </section>
+
+        <section id="casesView" class="view" aria-labelledby="casesTitle">
+          <div class="view-header">
+            <button class="back-button" data-back type="button">← メインメニュー</button>
+            <h2 id="casesTitle">あなたのMyケース</h2>
+          </div>
+          <div id="caseList" class="case-list"></div>
+        </section>
+
+        <section id="historyView" class="view" aria-labelledby="historyTitle">
+          <div class="view-header">
+            <button class="back-button" data-back type="button">← メインメニュー</button>
+            <h2 id="historyTitle">最近の転送した動画</h2>
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </section>
+
+        <section id="signInView" class="view sign-in-view" aria-labelledby="signInTitle">
+          <div class="sign-in-box">
+            <button class="back-button" data-back type="button">← メインメニュー</button>
+            <h2 id="signInTitle">サインイン</h2>
+            <label for="userNameInput">ユーザー名</label>
+            <input id="userNameInput" type="text" placeholder="例：佐藤" autocomplete="name" />
+            <button id="submitSignInButton" class="primary-button" type="button">サインインする</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="transferDialog">
+      <form method="dialog" class="dialog-content">
+        <h2>転送しました</h2>
+        <dl>
+          <div>
+            <dt>動画の名称</dt>
+            <dd id="dialogFileName"></dd>
+          </div>
+          <div>
+            <dt>ファイルの大きさ</dt>
+            <dd id="dialogFileSize"></dd>
+          </div>
+          <div>
+            <dt>移動先ケース名称</dt>
+            <dd id="dialogGenre"></dd>
+          </div>
+        </dl>
+        <div class="dialog-actions">
+          <button id="cancelTransferButton" class="danger-button" type="button">転送キャンセル</button>
+          <button class="primary-button" value="ok" type="submit">OK</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="signOutDialog">
+      <form method="dialog" class="dialog-content">
+        <h2>サインアウトしますか？</h2>
+        <p>現在のユーザーからサインアウトして、メインメニューに戻ります。</p>
+        <div class="dialog-actions">
+          <button class="ghost-button" value="cancel" type="submit">キャンセル</button>
+          <button id="confirmSignOutButton" class="danger-button" value="yes" type="button">Yes</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
